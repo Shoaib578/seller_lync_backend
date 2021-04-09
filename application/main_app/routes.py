@@ -95,7 +95,7 @@ def dropdown_vendors():
     location = request.args.get('location')
     category_id = request.args.get('category_id')
 
-    vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name LIKE '%"+str(location)+"%' AND vendor_category="+str(category_id)+"")
+    vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name LIKE '%"+str(location)+"%' AND vendor_category="+str(category_id)+" LIMIT 0, 5")
 
     
 
