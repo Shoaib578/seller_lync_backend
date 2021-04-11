@@ -60,6 +60,11 @@ def Register():
     phone_no = request.form.get('phone_no')
     zipcode_or_cityname = request.form.get('zipcode_or_cityname')
 
+    if type(zipcode_or_cityname) == str:
+        zipcode_or_cityname = zipcode_or_cityname.lower()
+    else:
+        pass
+
     hash_password = generate_password_hash(password)
     email_exists = Users.query.filter_by(email=email).first()
 
