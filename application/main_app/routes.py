@@ -14,6 +14,11 @@ main = Blueprint('main', __name__,static_folder='../static')
 @main.route('/get_all_categories_for_normal_users')
 def GetAllCategoriesForNormalUsers():
     user_default_location = request.args.get('user_default_location')
+    if type(user_default_location) == str:
+        user_default_location = user_default_location.lower()
+    else:
+        pass
+
     get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category=vendor_category_id ) as home_page_vendors_count  from vendor__categories")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
@@ -25,6 +30,11 @@ def view_category_by_user_default_location():
     category_id = request.args.get('category_id')
     user_default_location = request.args.get('user_default_location')
     
+    if type(user_default_location) == str:
+        user_default_location = user_default_location.lower()
+    else:
+        pass
+
     vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category="+str(category_id)+"")
 
     
@@ -77,6 +87,10 @@ def ViewSearchedCategory():
     location = request.args.get('location')
     category_id = request.args.get('category_id')
 
+    if type(location) == str:
+        location = location.lower()
+    else:
+        pass
     vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' AND vendor_category="+str(category_id)+"")
 
     
@@ -100,6 +114,11 @@ def dropdown_vendors():
     location = request.args.get('location')
     category_id = request.args.get('category_id')
 
+    if type(location) == str:
+        location = location.lower()
+    else:
+        pass
+        
     vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name ='"+str(location)+"' AND vendor_category="+str(category_id)+" LIMIT 0, 5")
 
     
