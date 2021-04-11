@@ -141,6 +141,11 @@ def AddVendor():
     vendor_category = request.form.get('vendor_category')
     phone_no = request.form.get('phone_no')
     price = request.form.get('price')
+
+    if type(city_name) == str:
+        city_name = city_name.lower()
+    else:
+        pass
     
     vendor = Vendors(name=name, city_name=city_name,vendor_zip_code=zipcode,phone_no=phone_no,price=price,vendor_category=vendor_category)
     db.session.add(vendor)

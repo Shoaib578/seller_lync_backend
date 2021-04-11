@@ -58,8 +58,13 @@ def ViewVendor():
 def GetAllCategoriesBySearch():
     location = request.args.get('location')
     item = request.args.get('item')
+
+    if type(location) == str:
+        location = location.lower()
+    else:
+        pass
     
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name LIKE '%"+str(location)+"%' AND vendor_category=vendor_category_id ) as search_page_vendors_count  from vendor__categories WHERE category LIKE '%"+str(item)+"%'")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' AND vendor_category=vendor_category_id ) as search_page_vendors_count  from vendor__categories WHERE category LIKE '%"+str(item)+"%'")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
