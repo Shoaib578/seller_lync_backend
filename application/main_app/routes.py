@@ -14,7 +14,7 @@ main = Blueprint('main', __name__,static_folder='../static')
 @main.route('/get_all_categories_for_normal_users')
 def GetAllCategoriesForNormalUsers():
     user_default_location = request.args.get('user_default_location')
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category=vendor_category_id ) as home_page_vendors_count  from vendor__categories  LEFT JOIN vendors on vendor_category=vendor_category_id")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category=vendor_category_id ) as home_page_vendors_count  from vendor__categories")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
