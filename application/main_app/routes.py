@@ -19,7 +19,7 @@ def GetAllCategoriesForNormalUsers():
     else:
         pass
 
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category=vendor_category_id ) as home_page_vendors_count  from vendor__categories")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE AND vendor_category=vendor_category_id AND  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"') as home_page_vendors_count  from vendor__categories")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
@@ -35,7 +35,7 @@ def view_category_by_user_default_location():
     else:
         pass
 
-    vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category="+str(category_id)+"")
+    vendors_sql = text("Select * from vendors WHERE vendor_category="+str(category_id)+" AND vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"'")
 
     
 
@@ -45,7 +45,7 @@ def view_category_by_user_default_location():
 
 
 
-    category_sql = text("Select *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"' AND vendor_category=vendor_category_id ) as vendors_count from vendor__categories where vendor_category_id="+str(category_id)+"")
+    category_sql = text("Select *,(SELECT count(*) FROM vendors WHERE vendor_category=vendor_category_id AND vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"') as vendors_count from vendor__categories where vendor_category_id="+str(category_id)+"")
     category_query = db.engine.execute(category_sql)
     category_schema = Vendor_CategoriesSchema(many=True)
     category_info = category_schema.dump(category_query)
@@ -74,7 +74,7 @@ def GetAllCategoriesBySearch():
     else:
         pass
     
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE vendor_category=vendor_category_id AND vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"'   ) as search_page_vendors_count  from vendor__categories WHERE category='"+str(item)+"'")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE vendor_category=vendor_category_id AND vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"') as search_page_vendors_count  from vendor__categories WHERE category LIKE'%"+str(item)+"%'")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
@@ -91,7 +91,7 @@ def ViewSearchedCategory():
         location = location.lower()
     else:
         pass
-    vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' AND vendor_category="+str(category_id)+"")
+    vendors_sql = text("Select * from vendors WHERE vendor_category="+str(category_id)+" AND vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' ")
 
     
 
@@ -101,7 +101,7 @@ def ViewSearchedCategory():
 
 
 
-    category_sql = text("Select *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name ='"+str(location)+"' AND vendor_category=vendor_category_id ) as vendors_count from vendor__categories where vendor_category_id="+str(category_id)+"")
+    category_sql = text("Select *,(SELECT count(*) FROM vendors WHERE  vendor_category=vendor_category_id AND  vendor_zip_code='"+str(location)+"' OR city_name ='"+str(location)+"') as vendors_count from vendor__categories where vendor_category_id="+str(category_id)+"")
     category_query = db.engine.execute(category_sql)
     category_schema = Vendor_CategoriesSchema(many=True)
     category_info = category_schema.dump(category_query)
@@ -119,7 +119,7 @@ def dropdown_vendors():
     else:
         pass
         
-    vendors_sql = text("Select * from vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name ='"+str(location)+"' AND vendor_category="+str(category_id)+" LIMIT 0, 5")
+    vendors_sql = text("Select * from vendors WHERE  vendor_category="+str(category_id)+" AND vendor_zip_code='"+str(location)+"' OR city_name ='"+str(location)+"'  LIMIT 0, 5")
 
     
 
