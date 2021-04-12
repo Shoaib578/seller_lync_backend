@@ -34,7 +34,7 @@ class Vendors(db.Model):
 
     phone_no = db.Column(db.String(200),nullable=False)
     city_name = db.Column(db.String(200),nullable=False)
-    vendor_category = db.Column(db.String(200),nullable=False)
+    vendor_category = db.Column(db.Integer(),nullable=False)
     price = db.Column(db.String(200),nullable=False)
 
 class VendorsSchema(ModelSchema):
