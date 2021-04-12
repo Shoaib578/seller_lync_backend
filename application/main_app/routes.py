@@ -19,7 +19,7 @@ def GetAllCategoriesForNormalUsers():
     else:
         pass
 
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE AND vendor_category=vendor_category_id AND  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"') as home_page_vendors_count  from vendor__categories")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_category=vendor_category_id AND  vendor_zip_code='"+str(user_default_location)+"' OR city_name ='"+str(user_default_location)+"') as home_page_vendors_count  from vendor__categories")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
