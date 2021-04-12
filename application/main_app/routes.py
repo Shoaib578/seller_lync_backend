@@ -74,7 +74,7 @@ def GetAllCategoriesBySearch():
     else:
         pass
     
-    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' AND vendor_category="+str(item)+" ) as search_page_vendors_count  from vendor__categories")
+    get_categories_sql = text("SELECT *,(SELECT count(*) FROM vendors WHERE  vendor_zip_code='"+str(location)+"' OR city_name='"+str(location)+"' AND vendor_category='"+str(item)+"' ) as search_page_vendors_count  from vendor__categories WHERE category="+str(item)+"")
     get_categories_query = db.engine.execute(get_categories_sql)
     vendor_categories_schema = Vendor_CategoriesSchema(many=True)
     all_categories =vendor_categories_schema.dump(get_categories_query)
