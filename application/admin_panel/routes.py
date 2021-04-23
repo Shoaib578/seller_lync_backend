@@ -8,6 +8,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
+from flask_mail import Mail, Message
 
 admin = Blueprint('admin', __name__,static_folder='../static')
 
@@ -43,9 +44,14 @@ def Login():
     user= Users.query.filter_by(email=email).first()
     
     if user and check_password_hash(user.password,password):
+        verification_code = random.randint(1000,9999)
         user_schema = UsersSchema()
         user = user_schema.dump(user)
-        return jsonify({'msg':'you are successfully logged in','user':user})
+        msg = Message('Hello', sender = os.getenv('my_gmail'), recipients = [user.email])
+        msg.body = "Hello, Welcome to SellerLync Your Verification code is " + verification_code
+        mail.send(msg)
+
+        return jsonify({'msg':'you are successfully logged in','user':user,'v_code':verification_code})
     else:
         return jsonify({'msg':'Wrong Email or Password'})
 
