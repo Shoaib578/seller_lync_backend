@@ -8,11 +8,12 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
-from flask_mail import Mail, Message
+import smtplib
+
 
 admin = Blueprint('admin', __name__,static_folder='../static')
 
-n = random.randint(0,1000)
+n = random.randint(0,1000)  
 
 
 def save_file(file, type):
@@ -47,9 +48,11 @@ def Login():
         verification_code = random.randint(1000,9999)
         user_schema = UsersSchema()
         user = user_schema.dump(user)
-        msg = Message('Hello', sender = os.getenv('my_gmail'), recipients = [user.email])
-        msg.body = "Hello, Welcome to SellerLync Your Verification code is " + verification_code
-        mail.send(msg)
+        msg =  'Subject: {}\n\n{}'.format('SELLER LYNC VERIFICATION CODE', 'Your Verification code is '+str(verification_code))
+        server = smtplib.SMTP('smtp.gmail.com',587)
+        server.starttls()
+        server.login(os.getenv('my_gmail'), os.getenv('my_gmail_password'))
+        server.sendmail(os.getenv('my_gmail'),'theshoaibihsan10@gmail.com',msg)
 
         return jsonify({'msg':'you are successfully logged in','user':user,'v_code':verification_code})
     else:
