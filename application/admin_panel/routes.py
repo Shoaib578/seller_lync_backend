@@ -51,8 +51,8 @@ def Login():
         msg =  'Subject: {}\n\n{}'.format('SELLER LYNC VERIFICATION CODE', 'Your Verification code is '+str(verification_code))
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.starttls()
-        server.login(os.getenv('my_gmail'), os.getenv('my_gmail_password'))
-        server.sendmail(os.getenv('my_gmail'),user.email,msg)
+        server.login('theshoaibihsan10@gmail.com', 'Games587')
+        server.sendmail('theshoaibihsan10@gmail.com',user.email,msg)
 
         return jsonify({'msg':'you are successfully logged in','user':user,'v_code':verification_code})
     else:
