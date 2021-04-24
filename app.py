@@ -2,7 +2,7 @@ from application import app,db
 from application.admin_panel.models import Users
 from werkzeug.security import generate_password_hash,check_password_hash
 
-db.create_all()
+
 
 admin_user = Users.query.filter_by(is_admin=1)
 if admin_user.count() == 0:
