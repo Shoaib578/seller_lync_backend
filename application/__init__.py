@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://lhoefnldnnzzhf:40ce4cf953be7c1c415ed07fa1cdedec162d97d4b86b0cb87e1ff508b5133538@ec2-34-225-167-77.compute-1.amazonaws.com:5432/d3vnjuqtr3df0u"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///D:\Projects\React Native Projects\SellerLync\APIS\db.sqlite"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
