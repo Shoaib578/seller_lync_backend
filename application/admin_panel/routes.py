@@ -45,16 +45,16 @@ def Login():
     user= Users.query.filter_by(email=email).first()
     
     if user and check_password_hash(user.password,password):
-        verification_code = random.randint(1000,9999)
+        # verification_code = random.randint(1000,9999)
         user_schema = UsersSchema()
         user = user_schema.dump(user)
-        msg =  'Subject: {}\n\n{}'.format('SELLER LYNC VERIFICATION CODE', 'Your Verification code is '+str(verification_code))
-        server = smtplib.SMTP('smtp.gmail.com',587)
-        server.starttls()
-        server.login('theshoaibihsan10@gmail.com', 'Games587')
-        server.sendmail('theshoaibihsan10@gmail.com',user.email,msg)
+        # msg =  'Subject: {}\n\n{}'.format('SELLER LYNC VERIFICATION CODE', 'Your Verification code is '+str(verification_code))
+        # server = smtplib.SMTP('smtp.gmail.com',587)
+        # server.starttls()
+        # server.login('', '')
+        # server.sendmail('',user.email,msg)
 
-        return jsonify({'msg':'you are successfully logged in','user':user,'v_code':verification_code})
+        return jsonify({'msg':'you are successfully logged in','user':user})
     else:
         return jsonify({'msg':'Wrong Email or Password'})
 
