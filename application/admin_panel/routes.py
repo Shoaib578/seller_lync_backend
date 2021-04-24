@@ -8,7 +8,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
-import smtplib
+
 
 
 admin = Blueprint('admin', __name__,static_folder='../static')
@@ -45,14 +45,10 @@ def Login():
     user= Users.query.filter_by(email=email).first()
     
     if user and check_password_hash(user.password,password):
-        # verification_code = random.randint(1000,9999)
+       
         user_schema = UsersSchema()
         user = user_schema.dump(user)
-        # msg =  'Subject: {}\n\n{}'.format('SELLER LYNC VERIFICATION CODE', 'Your Verification code is '+str(verification_code))
-        # server = smtplib.SMTP('smtp.gmail.com',587)
-        # server.starttls()
-        # server.login('', '')
-        # server.sendmail('',user.email,msg)
+        
 
         return jsonify({'msg':'you are successfully logged in','user':user})
     else:
