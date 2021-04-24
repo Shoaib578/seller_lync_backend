@@ -9,11 +9,9 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
 
-
-
 admin = Blueprint('admin', __name__,static_folder='../static')
 
-n = random.randint(0,1000)  
+n = random.randint(0,1000)
 
 
 def save_file(file, type):
@@ -45,11 +43,8 @@ def Login():
     user= Users.query.filter_by(email=email).first()
     
     if user and check_password_hash(user.password,password):
-       
         user_schema = UsersSchema()
         user = user_schema.dump(user)
-        
-
         return jsonify({'msg':'you are successfully logged in','user':user})
     else:
         return jsonify({'msg':'Wrong Email or Password'})
