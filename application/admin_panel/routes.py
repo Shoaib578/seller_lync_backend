@@ -52,7 +52,7 @@ def Login():
         server = smtplib.SMTP('smtp.gmail.com',587)
         server.starttls()
         server.login(os.getenv('my_gmail'), os.getenv('my_gmail_password'))
-        server.sendmail(os.getenv('my_gmail'),'theshoaibihsan10@gmail.com',msg)
+        server.sendmail(os.getenv('my_gmail'),user.email,msg)
 
         return jsonify({'msg':'you are successfully logged in','user':user,'v_code':verification_code})
     else:
