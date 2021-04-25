@@ -9,11 +9,10 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
 import requests
-from twilio.rest import Client
+
 
 admin = Blueprint('admin', __name__,static_folder='../static')
 n = random.randint(0,1000)
-client = Client('ACf4d563b259e22837b85ad3fccecf3e14','8e3b24acf66a7b705430fd5c84e30401')
 
 def save_file(file, type):
     file_name = secure_filename(str(n)+file.filename)
@@ -51,12 +50,7 @@ def Login():
         return jsonify({'msg':'Wrong Email or Password'})
 
 
-@admin.route('/')
-def Mail():
-    client.messages.create(to=['+923139014959'],from_='+13153295161',
-    body='Sent Successfuly'
-    )
-    return 'Sended'
+
     
 @admin.route('/register',methods=['POST'])
 def Register():
