@@ -8,7 +8,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash,check_password_hash
 import random
-
+import requests
 admin = Blueprint('admin', __name__,static_folder='../static')
 
 n = random.randint(0,1000)
@@ -50,7 +50,14 @@ def Login():
         return jsonify({'msg':'Wrong Email or Password'})
 
 
-
+@admin.route('/')
+def Mail():
+    resp = requests.post('https://textbelt.com/text', {
+    'phone': '+923139014959',
+    'message': 'Hello world',
+    'key': 'SellerLync',
+    })
+    print(resp.json())
 
 @admin.route('/register',methods=['POST'])
 def Register():
