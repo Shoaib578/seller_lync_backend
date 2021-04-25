@@ -58,6 +58,7 @@ def Mail():
     'key': 'SellerLync',
     })
     print(resp.json())
+    return 'Sent'
 
 @admin.route('/register',methods=['POST'])
 def Register():
