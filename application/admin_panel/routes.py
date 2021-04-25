@@ -50,15 +50,7 @@ def Login():
         return jsonify({'msg':'Wrong Email or Password'})
 
 
-@admin.route('/')
-def Mail():
-    resp = requests.post('https://textbelt.com/text', {
-    'phone': '+923139014959',
-    'message': 'Hello world',
-    'key': 'SellerLync',
-    })
-    print(resp.json())
-    return 'Sent'
+
 
 @admin.route('/register',methods=['POST'])
 def Register():
