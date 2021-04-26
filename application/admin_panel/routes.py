@@ -1,7 +1,7 @@
 from flask import Blueprint,jsonify,request
 from application import db,app
 from werkzeug.security import generate_password_hash,check_password_hash
-from application.admin_panel.models import Users,Vendors,Vendor_Categories,UsersSchema,Vendor_CategoriesSchema,VendorsSchema
+from application.admin_panel.models import Users,Vendors,Vendor_Categories,UsersSchema,Vendor_CategoriesSchema,VendorsSchema,Cities,Cities_Schema
 import os
 from sqlalchemy import text
 from datetime import datetime
@@ -193,3 +193,42 @@ def DeleteUser():
     db.session.delete(user)
     db.session.commit()
     return jsonify({'msg':'User Has Been Deleted'})
+
+
+
+
+@admin.route('/add_city', methods=['POST'])
+def AddCity():
+    city_name = request.form.get('city_name')
+    province_name = request.form.get('province_name')
+
+    city = Cities(city=city_name,province=province_name)
+    db.session.add(city)
+    db.session.commit()
+    return jsonify({'msg':'City Has Been Added'})
+
+
+@admin.route('/')
+def DeleteCity():
+    id = request.args.get('id')
+    city = Cities.query.filter_by(city_id=id).first()
+    db.session.delete(city)
+    db.session.commit()
+    return jsonify({'msg':'City Has Been Deleted'})
+
+
+@admin.route('/get_cities')
+def GetCities():
+    want_to_search = request.args.get('want_to_search')
+    if want_to_search == 'true':
+        search_field = request.args.get('search_field')
+        cities_sql = text("SELECT * FROM cities WHERE city LIKE'%"+str(search_field)+"%'")
+        city_query = db.engine.execute(cities_sql)
+        city_schema = Cities_Schema(many=True)
+        cities = city_schema.dump(city_query)
+        return jsonify({'cities':cities})
+    else:
+        cities = Cities.query.all()
+        city_schema = Cities_Schema(many=True)
+        cities = city_schema.dump(city_query)
+        return jsonify({'cities':cities})
