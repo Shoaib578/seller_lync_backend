@@ -6,6 +6,7 @@ import os
 from sqlalchemy import text
 from datetime import datetime
 from werkzeug.utils import secure_filename
+db.create_all()
 
 
 main = Blueprint('main', __name__,static_folder='../static')
