@@ -202,6 +202,16 @@ def AddCity():
     city_name = request.form.get('city_name')
     province_name = request.form.get('province_name')
 
+    if type(city_name) == str:
+        city_name = city_name.lower()
+    else:
+        pass
+
+    if type(province_name) == str:
+        province_name = province_name.lower()
+    else:
+        pass
+
     city = Cities(city=city_name,province=province_name)
     db.session.add(city)
     db.session.commit()
