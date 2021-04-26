@@ -58,10 +58,10 @@ def Register():
     password = request.form.get('password')
     name = request.form.get('name')
     phone_no = request.form.get('phone_no')
-    zipcode_or_cityname = request.form.get('zipcode_or_cityname')
+    cityname = request.form.get('cityname')
 
-    if type(zipcode_or_cityname) == str:
-        zipcode_or_cityname = zipcode_or_cityname.lower()
+    if type(cityname) == str:
+        cityname = zipcode_or_cityname.lower()
     else:
         pass
 
@@ -71,7 +71,7 @@ def Register():
     if email_exists:
         return jsonify({'msg':'Email Already Exists Try Another One'})
     else:
-        user = Users(email=email,password=hash_password,name=name,phone_no=phone_no,user_zipcode_or_cityname=zipcode_or_cityname,is_admin=0)
+        user = Users(email=email,password=hash_password,name=name,phone_no=phone_no,user_cityname=cityname,is_admin=0)
         db.session.add(user)
         db.session.commit()
         return jsonify({'msg':'You are Successfully Registered'})
@@ -140,7 +140,7 @@ def Delete_Category():
 
 @admin.route('/add_vendor',methods=['POST'])
 def AddVendor():
-    zipcode = request.form.get('zipcode')
+    
     city_name = request.form.get('city_name')
     name = request.form.get('name')
     vendor_category = request.form.get('vendor_category')
@@ -152,7 +152,7 @@ def AddVendor():
     else:
         pass
     
-    vendor = Vendors(name=name, city_name=city_name,vendor_zip_code=zipcode,phone_no=phone_no,price=price,vendor_category=vendor_category)
+    vendor = Vendors(name=name, vendor_city_name=city_name,phone_no=phone_no,price=price,vendor_category=vendor_category)
     db.session.add(vendor)
     db.session.commit()
     return jsonify({'msg':'Vendor Has Been Added'})

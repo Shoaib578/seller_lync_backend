@@ -9,11 +9,11 @@ class Users(db.Model):
     password = db.Column(db.String(200),nullable=False)
     phone_no = db.Column(db.String(200),nullable=False)
     
-    user_zipcode_or_cityname = db.Column(db.String(200),nullable=False)
+    user_cityname = db.Column(db.String(200),nullable=False)
     is_admin = db.Column(db.Integer(),nullable=False)
 class UsersSchema(ModelSchema):
     class Meta:
-        fields = ('user_id','name','email','password','phone_no','user_zipcode_or_cityname','is_admin')
+        fields = ('user_id','name','email','password','phone_no','user_cityname','is_admin')
 
 class Vendor_Categories(db.Model):
     vendor_category_id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +22,7 @@ class Vendor_Categories(db.Model):
 
 class Vendor_CategoriesSchema(ModelSchema):
     class Meta:
-        fields = ('vendor_category_id','picture','category','vendors_count','home_page_vendors_count','vendor_id','name','vendor_category','password','phone_no','city_name','vendor_zip_code','price','category','search_page_vendors_count')
+        fields = ('vendor_category_id','picture','category','vendors_count','home_page_vendors_count','vendor_id','name','vendor_category','password','phone_no','user_cityname','price','category','search_page_vendors_count')
     
 
 
@@ -30,16 +30,22 @@ class Vendor_CategoriesSchema(ModelSchema):
 class Vendors(db.Model):
     vendor_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100),nullable=False)
-    vendor_zip_code = db.Column(db.String(200),nullable=False)
+    
 
     phone_no = db.Column(db.String(200),nullable=False)
-    city_name = db.Column(db.String(200),nullable=False)
+    vendor_city_name = db.Column(db.String(200),nullable=False)
     vendor_category = db.Column(db.Integer(),nullable=False)
     price = db.Column(db.String(200),nullable=False)
 
 class VendorsSchema(ModelSchema):
     class Meta:
-        fields = ('vendor_id','name','vendor_category','password','phone_no','city_name','vendor_zip_code','price','category','vendor_category_id','picture','category')
+        fields = ('vendor_id','name','vendor_category','password','phone_no','vendor_city_name','price','category','vendor_category_id','picture','category','user_cityname')
 
 
 
+
+
+class Cities(db.Model):
+    city_id = db.Column(db.Integer(),primary_key=True)
+    city = db.Column(db.String(200))
+    province = db.Column(db.String(200))
