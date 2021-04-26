@@ -1,5 +1,4 @@
-from application import db
-db.create_all()
+
 
 from application.admin_panel.models import Users
 
@@ -14,3 +13,4 @@ if admin_user.count() == 0:
 else:
     pass
 
+print('created')

@@ -1,6 +1,6 @@
-from application import app
+from application import app,db
 
-
+db.create_all()
 
 
 
