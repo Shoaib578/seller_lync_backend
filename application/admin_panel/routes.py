@@ -61,7 +61,7 @@ def Register():
     cityname = request.form.get('cityname')
 
     if type(cityname) == str:
-        cityname = zipcode_or_cityname.lower()
+        cityname = cityname.lower()
     else:
         pass
 
