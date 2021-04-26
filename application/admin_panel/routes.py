@@ -208,7 +208,7 @@ def AddCity():
     return jsonify({'msg':'City Has Been Added'})
 
 
-@admin.route('/')
+@admin.route('/delete_city')
 def DeleteCity():
     id = request.args.get('id')
     city = Cities.query.filter_by(city_id=id).first()
@@ -230,5 +230,5 @@ def GetCities():
     else:
         cities = Cities.query.all()
         city_schema = Cities_Schema(many=True)
-        cities = city_schema.dump(city_query)
+        cities = city_schema.dump(cities)
         return jsonify({'cities':cities})
