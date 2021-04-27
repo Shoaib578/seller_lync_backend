@@ -120,7 +120,7 @@ def dropdown_vendors():
     else:
         pass
         
-    vendors_sql = text("Select * from vendors WHERE  vendor_category="+str(category_id)+" AND  vendor_city_name ='"+str(location)+"'  LIMIT 0, 5")
+    vendors_sql = text("Select * from vendors WHERE  vendor_category="+str(category_id)+" AND  vendor_city_name ='"+str(location)+"'")
 
     
 
