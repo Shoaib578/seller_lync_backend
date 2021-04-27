@@ -35,8 +35,20 @@ def remove_file(file, type):
     return 'File Has Been Removed'
 
 
+
+
+
 @admin.route('/login', methods=['POST'])
 def Login():
+    admin_user = Users.query.filter_by(is_admin=1)
+    if admin_user.count() == 0:
+        psw = generate_password_hash('admin2589')
+        admin = Users(name='Admin',email='theadmin287@gmail.com',password=psw,phone_no='0333434',is_admin=1,user_cityname='india')
+        db.session.add(admin)
+        db.session.commit()
+    else:
+        pass
+
     email = request.form.get('email')
     password = request.form.get('password')
     
