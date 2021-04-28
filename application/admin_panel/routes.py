@@ -244,7 +244,7 @@ def GetCities():
     if want_to_search == 'true':
         search_field = request.args.get('search_field')
         if type(search_field) == str:
-        search_field = search_field.lower()
+            search_field = search_field.lower()
         else:
             pass
 
