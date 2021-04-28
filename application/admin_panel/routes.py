@@ -205,7 +205,7 @@ def DeleteUser():
 @admin.route('/add_city', methods=['POST'])
 def AddCity():
     city_name = request.form.get('city_name')
-    province_name = request.form.get('province_name')
+    state = request.form.get('state')
     district = request.form.get('district')
 
     if type(city_name) == str:
@@ -223,7 +223,7 @@ def AddCity():
     else:
         pass
 
-    city = Cities(city=city_name,province=province_name,district=district)
+    city = Cities(city=city_name,state=state,district=district)
     db.session.add(city)
     db.session.commit()
     return jsonify({'msg':'City Has Been Added'})
