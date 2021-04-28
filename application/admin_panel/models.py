@@ -49,7 +49,8 @@ class Cities(db.Model):
     city_id = db.Column(db.Integer(),primary_key=True)
     city = db.Column(db.String(200))
     province = db.Column(db.String(200))
+    district = db.Column(db.String(200))
 
 class Cities_Schema(ModelSchema):
     class Meta:
-        fields =('city_id','city','province')
+        fields =('city_id','city','province','district')

@@ -206,6 +206,7 @@ def DeleteUser():
 def AddCity():
     city_name = request.form.get('city_name')
     province_name = request.form.get('province_name')
+    district = request.form.get('district')
 
     if type(city_name) == str:
         city_name = city_name.lower()
@@ -216,8 +217,13 @@ def AddCity():
         province_name = province_name.lower()
     else:
         pass
+    
+    if type(district) == str:
+        district = district.lower()
+    else:
+        pass
 
-    city = Cities(city=city_name,province=province_name)
+    city = Cities(city=city_name,province=province_name,district=district)
     db.session.add(city)
     db.session.commit()
     return jsonify({'msg':'City Has Been Added'})
@@ -237,6 +243,11 @@ def GetCities():
     want_to_search = request.args.get('want_to_search')
     if want_to_search == 'true':
         search_field = request.args.get('search_field')
+        if type(search_field) == str:
+        search_field = search_field.lower()
+        else:
+            pass
+
         cities_sql = text("SELECT * FROM cities WHERE city LIKE'%"+str(search_field)+"%'")
         city_query = db.engine.execute(cities_sql)
         city_schema = Cities_Schema(many=True)
