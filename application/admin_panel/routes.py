@@ -213,8 +213,8 @@ def AddCity():
     else:
         pass
 
-    if type(province_name) == str:
-        province_name = province_name.lower()
+    if type(state) == str:
+        state = state.lower()
     else:
         pass
     
